@@ -53,7 +53,21 @@
 <script>
 import LoopImage from "../components/LoopIamge"
 import TeacherAndClassCard from "../components/TeacherAndClassCard"
+import {getBooks} from "../api/api.js"
 export default {
+     mounted () {
+           
+            
+             // load books list when visit the page
+        
+          
+                getBooks().then(response => {
+                   alert(response.status+ "find ok")
+                })
+         
+             // add a book to backend when click the button
+      
+  },
     data:()=>({
         teacherList:[
 

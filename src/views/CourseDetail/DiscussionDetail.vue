@@ -6,15 +6,15 @@
          :listData="comments" 
          ></Comment>
          <Reply :comments="comments" @getComment="getComment"></Reply>
-           <a-button type="primary" @click="returnStatus" style="float:right;width:100px">
+           <a-button type="primary" @click="back" style="float:right;width:100px">
             返 回
            </a-button>
     </div>
 </template>
 
 <script>
-import Comment from "./../Comments"
-import Reply from "./../Reply"
+import Comment from "./../../components/Comments"
+import Reply from "./../../components/Reply"
 export default {
     components:{
         Comment,
@@ -24,8 +24,8 @@ export default {
         getComment(data){
             this.comments=data
         },
-        returnStatus(){
-            this.$emit('getStatus',5)
+        back(){
+            this.$router.go(-1)
         }
     },
       data:()=>({

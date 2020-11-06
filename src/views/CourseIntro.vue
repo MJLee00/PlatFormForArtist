@@ -34,7 +34,7 @@ export default {
             this.status=1;
         },
         loginCourseDetail(){
-            this.$router.push("CoursesDetail")
+            this.$router.push("CoursesDetail/Bulletin")
         }
 
     },

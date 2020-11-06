@@ -66,7 +66,7 @@ export default {
     
     position:absolute;
     top:300px;
-    left:1200px;
+    left:1100px;
     font-size:15px;
   
     width:100px;

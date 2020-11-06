@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import {getUser} from './../api/api'
 export default {
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' });
@@ -70,19 +71,19 @@ export default {
         if (!err) {
           console.log('Received values of form: ', values);
           console.log(this.$yuns.format(new Date(),"yyyy/MM/dd"))
+         getUser(values["userName"],values["password"]).then(Response=>{
+           console.log(Response)
+          if(Response.data.status==200)
+          this.$root.isShowUser=Response.data.data.type;
+           if(this.$root.isShowUser==1||this.$root.isShowUser==2)
+              {this.$router.push('/');}
+           else if(this.$root.isShowUser==3)
+              this.$router.push('/AdminHomePage');
+               
+          console.log(this.$root.isShowUser)
+        })
         }
-        if(values["userName"]=="admin"){
-          if(values["password"]!="1234")alert("wrong password");
-          else  {this.$root.isShowUser=3;this.$router.push('/');} 
-        }
-      if(values["userName"]=="lmy"){
-          if(values["password"]!="1234")alert("wrong password");
-          else  {this.$root.isShowUser=2;this.$router.push('/');} 
-        }
-      if(values["userName"]=="lmy123"){
-          if(values["password"]!="1234")alert("wrong password");
-          else  {this.$root.isShowUser=1;this.$router.push('/');} 
-        }
+ 
       });
     },
   },

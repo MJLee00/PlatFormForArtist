@@ -1,23 +1,29 @@
-<template>
+<template >
   <div id="app">
-<Layout>
-     <router-view v-if="this.$root.isShowUser!=3" v-wechat-title='$route.meta.title'></router-view>
-    
-</Layout>
+<component :is="componentName">
+
+     <router-view  v-wechat-title='$route.meta.title'></router-view>
+     
+</component>
 
   </div>
 </template>
 
 <script>
-import Layout from './components/Layout'
+import Header from './components/Header'
+import AdminHead from './components/AdminHead'
 export default {
   name: 'App',
   components:{
-    Layout
+    Header,
+    AdminHead
   },
-  data:()=>({
-
-  })
+  computed:{
+    componentName(){
+      if(this.$root.isShowUser!=3)return 'Header';
+      else return 'AdminHead'
+    }
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="listData">
     <a-list-item slot="renderItem" key="item.title" slot-scope="item">
       <a-list-item-meta >
-        <a slot="title" @click="setStatus">{{ item.title }}</a>
+        <a slot="title" @click="navi({name:'DisccussionDetail'})">{{ item.title }}</a>
         <a-avatar slot="avatar" :src="item.avatar" />
       </a-list-item-meta>
       {{ item.content }}
@@ -14,9 +14,8 @@
 export default {
   props:["listData"],
   methods:{
-    setStatus(){
-      console.log(51);
-        this.$emit('getStatus',51)
+    navi(s){
+      this.$router.push(s)
     }
   },
   data() {
@@ -30,6 +29,7 @@ export default {
       },
     };
   },
+
 };
 </script>
 <style></style>

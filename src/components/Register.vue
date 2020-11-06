@@ -64,7 +64,9 @@
 </template>
 
 <script>
+import {postUser} from './../api/api'
 export default {
+  
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' });
   },
@@ -76,8 +78,11 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
-          console.log(this.$yuns.format(new Date(),"yyyy/MM/dd"))
+        
+          console.log(values['userName'])
+          postUser(values["userName"],values["password"]).then(Response=>{
+            alert(Response.status+"注册成功")
+          })
           this.$router.push('/Login')
         }
          

@@ -10,14 +10,15 @@
 </template>
 
 <script>
-import Video from "./Video"
+import Video from "./../../components/Video"
 export default {
-    props:["title"],
+
     components:{
         Video
     },
     data:()=>({
-        status:0
+        status:0,
+        title:"课 件"
     }),
     methods:{
         changeStatus(s){

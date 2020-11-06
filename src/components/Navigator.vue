@@ -2,11 +2,11 @@
     <div>
         <img :src="src" style="width:300px;height:100px;margin-bottom:10px;margin-left:10px"/>
         <div class="btn-group">
-        <a-button @click="changeStatus(1)">公 告</a-button>
-        <a-button @click="changeStatus(2)">评分标准</a-button>
-        <a-button @click="changeStatus(3)">课 件</a-button>
-        <a-button @click="changeStatus(4)">测试与作业</a-button>
-        <a-button @click="changeStatus(5)">讨论区</a-button>
+        <a-button @click="navi({name:'Bulletin'})">公 告</a-button>
+        <a-button @click="navi({name:'Grading'})">评分标准</a-button>
+        <a-button @click="navi({name:'Accessory'})">课 件</a-button>
+        <a-button @click="navi({name:'Testing'})">测试与作业</a-button>
+        <a-button @click="navi({name:'Disccussion'})">讨论区</a-button>
         </div>
     </div>
 </template>
@@ -15,9 +15,9 @@
 export default {
     props:["src"],
     methods:{
-        changeStatus(s)
+        navi(s)
         {
-            this.$emit('getStatus',s)
+            this.$router.push(s)
         }
     }
 }

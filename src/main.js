@@ -7,6 +7,8 @@ import Antd from 'ant-design-vue';
 import VueWechatTitle from 'vue-wechat-title'
 import yuns from './assets/js/yun';
 import VideoPlayer from 'vue-video-player';
+import axios from 'axios'
+
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 Vue.use(VideoPlayer);
@@ -16,7 +18,7 @@ Vue.use(VueWechatTitle)
 Vue.component(Button.name, Button);
 Vue.use(Antd);
 Vue.config.productionTip = false;
-
+Vue.prototype.$http = axios;
 new Vue({
   router,
   data:function(){

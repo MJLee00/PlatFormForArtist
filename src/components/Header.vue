@@ -42,7 +42,7 @@
 
     <a-layout-content :style="{ marginTop: '64px' }">
       <div :style="{ background: '#fff', padding: '24px', minHeight: '1900px' }">
-        <slot></slot>
+        <slot  ></slot>
       </div>
     </a-layout-content>
 

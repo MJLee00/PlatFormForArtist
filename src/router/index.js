@@ -20,8 +20,121 @@ export default new Router({
       component:()=>import(/* webpackChunkName: "AdminHomePage"*/"../views/AdminPages/HomePage.vue" ),
       meta:{
         title:'管理员主页'
-      }
+      },
     },
+ 
+    {
+      
+      path:'/Commission',
+      name:'Commission',
+      component:()=>import(/* webpackChunkName: "Commission"*/"../views/AdminPages/Commission.vue" ),
+      meta:{
+        title:'代办列表'
+      },
+  
+  },
+  {
+      
+    path:'/CommissionDetail',
+    name:'CommissionDetail',
+    component:()=>import(/* webpackChunkName: "CommissionDetail"*/"../views/AdminPages/CommissionDetail.vue" ),
+    meta:{
+      title:'代办详情'
+    },
+
+},
+{
+      
+  path:'/LoopManager',
+  name:'LoopManager',
+  component:()=>import(/* webpackChunkName: "LoopManager"*/"../views/AdminPages/LoopManager.vue" ),
+  meta:{
+    title:'轮播图管理'
+  },
+
+},
+{
+      
+  path:'/InsertLoopManager',
+  name:'InsertLoopManager',
+  component:()=>import(/* webpackChunkName: "InsertLoopManager"*/"../views/AdminPages/InsertLoopManager.vue" ),
+  meta:{
+    title:'新增轮播图'
+  },
+
+},
+{
+      
+  path:'/RecycleBin',
+  name:'RecycleBin',
+  component:()=>import(/* webpackChunkName: "RecycleBin"*/"../views/AdminPages/RecycleBin.vue" ),
+  meta:{
+    title:'回收站'
+  },
+
+},
+{
+      
+  path:'/CourseManager',
+  name:'CourseManager',
+  component:()=>import(/* webpackChunkName: "CourseManager"*/"../views/AdminPages/CourseManager.vue" ),
+  meta:{
+    title:'课程管理'
+  },
+
+},
+{
+      
+  path:'/CourseManagerDetail',
+  name:'CourseManagerDetail',
+  component:()=>import(/* webpackChunkName: "CourseManagerDetail"*/"../views/AdminPages/CourseManagerDetail.vue" ),
+  meta:{
+    title:'课程详情'
+  },
+
+},
+
+{
+      
+  path:'/TeacherManager',
+  name:'TeacherManager',
+  component:()=>import(/* webpackChunkName: "TeacherManager"*/"../views/AdminPages/TeacherManager.vue" ),
+  meta:{
+    title:'教师列表'
+  },
+
+},
+{
+      
+  path:'/UserManager',
+  name:'UserManager',
+  component:()=>import(/* webpackChunkName: "UserManager"*/"../views/AdminPages/UserManager.vue" ),
+  meta:{
+    title:'用户列表'
+  },
+
+},
+{
+      
+  path:'/TeacherManagerDetail',
+  name:'TeacherManagerDetail',
+  component:()=>import(/* webpackChunkName: "TeacherManagerDetail"*/"../views/AdminPages/TeacherManagerDetail.vue" ),
+  meta:{
+    title:'教师详情'
+  },
+
+},
+{
+      
+  path:'/UserManagerDetail',
+  name:'UserManagerDetail',
+  component:()=>import(/* webpackChunkName: "UserManagerDetail"*/"../views/AdminPages/UserManagerDetail.vue" ),
+  meta:{
+    title:'用户详情'
+  },
+
+},
+
     {
       path:'/Courses',
       name:'Courses',
@@ -115,7 +228,115 @@ export default new Router({
       meta:{
         title:'课程详情'
       },
-
+      children:[{
+        path:'Bulletin',
+        name:'Bulletin',
+        component:()=>import(/* webpackChunkName: "Bulletin"*/"../views/CourseDetail/Bulletin.vue" ),
+        meta:{
+          title:'公告'
+        },
+      },
+      {
+        path:'InsertBulletin',
+        name:'InsertBulletin',
+        component:()=>import(/* webpackChunkName: "Bulletin"*/"../views/Teachers/InsertBulletin.vue" ),
+        meta:{
+          title:'添加公告'
+        },
+      },
+      {
+        path:'Grading',
+        name:'Grading',
+        component:()=>import(/* webpackChunkName: "Grading"*/"../views/CourseDetail/Grading.vue" ),
+        meta:{
+          title:'评分标准'
+        },
+      },
+      
+      {
+        path:'InsertGrading',
+        name:'InsertGrading',
+        component:()=>import(/* webpackChunkName: "InsertGrading"*/"../views/Teachers/InsertGrading.vue" ),
+        meta:{
+          title:'添加评分标准'
+        },
+      },
+      {
+        path:'Accessory',
+        name:'Accessory',
+        component:()=>import(/* webpackChunkName: "Grading"*/"../views/CourseDetail/Accessory.vue" ),
+        meta:{
+          title:'课件'
+        },
+      },
+      {
+        path:'AccessoryDetail',
+        name:'AccessoryDetail',
+        component:()=>import(/* webpackChunkName: "AccessoryDetail"*/"../views/CourseDetail/VideosAndDoc.vue" ),
+        meta:{
+          title:'课件详情'
+        },
+      },
+      {
+        path:'InsertAccessory',
+        name:'InsertAccessory',
+        component:()=>import(/* webpackChunkName: "InsertAccessory"*/"../views/Teachers/InsertAccessory.vue" ),
+        meta:{
+          title:'新增课件'
+        },
+      },
+      {
+        path:'Testing',
+        name:'Testing',
+        component:()=>import(/* webpackChunkName: "Testing"*/"../views/CourseDetail/Testing.vue" ),
+        meta:{
+          title:'测试与作业'
+        },
+      },
+      {
+        path:'InsertTesting',
+        name:'InsertTesting',
+        component:()=>import(/* webpackChunkName: "Testing"*/"../views/Teachers/InsertTesting.vue" ),
+        meta:{
+          title:'添加测试'
+        },
+      },
+      {
+        path:'TestingDetail',
+        name:'TestingDetail',
+        component:()=>import(/* webpackChunkName: "TestingDetail"*/"../views/Students/TestingDetail.vue" ),
+        meta:{
+          title:'测试'
+        },
+      },
+        {
+        path:'Disccussion',
+        name:'Disccussion',
+        component:()=>import(/* webpackChunkName: "Disccussion"*/"../views/CourseDetail/Discussion.vue" ),
+        meta:{
+          title:'讨论区'
+        },
+        
+      },
+      {
+          
+        path:'DisccussionStart',
+        name:'DisccussionStart',
+        component:()=>import(/* webpackChunkName: "DisccussionStart"*/"../views/CourseDetail/DiscussionStart.vue" ),
+        meta:{
+          title:'发起主题'
+        }
+    },
+    {
+      
+      path:'DisccussionDetail',
+      name:'DisccussionDetail',
+      component:()=>import(/* webpackChunkName: "DisccussionDetail"*/"../views/CourseDetail/DiscussionDetail.vue" ),
+      meta:{
+        title:'主题详情'
+      }
+  }
+      ]
     },
     {
       path:'/TeacherHomePage',

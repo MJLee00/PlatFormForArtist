@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Video from './../../components/CoursesDetail/Video'
+import Video from './../../components/Video'
 export default {
     methods:{
         navi(){
