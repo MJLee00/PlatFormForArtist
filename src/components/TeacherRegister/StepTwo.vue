@@ -163,7 +163,7 @@ export default {
   },
   methods: {
      returnPage(){
-          this.$emit('child-event',0)
+          this.$emit('child-event',{status:0,values:undefined})
      },
     handleSubmit(e) {
       e.preventDefault();
@@ -171,7 +171,7 @@ export default {
         if (!err) {
           console.log('Received values of form: ', values);
         }
-            else{this.$emit('child-event',2)}
+            this.$emit('child-event',{status:2,values:values})
       });
     },
  

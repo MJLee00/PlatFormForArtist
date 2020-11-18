@@ -53,52 +53,16 @@
 <script>
 import LoopImage from "../components/LoopIamge"
 import TeacherAndClassCard from "../components/TeacherAndClassCard"
-import {getBooks} from "../api/api.js"
-export default {
-     mounted () {
-           
-            
-             // load books list when visit the page
-        
-          
-                getBooks().then(response => {
-                   alert(response.status+ "find ok")
-                })
-         
-             // add a book to backend when click the button
-      
-  },
-    data:()=>({
-        teacherList:[
+import {getCourseIntro} from "../api/api.js"
 
-            {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"CourseIntro",
-                "title":"xiaoming"
-            },
-             {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                "title":"xiaoming"
-            },
-             {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                 "title":"xiaoming"
-            },
-             {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                 "title":"xiaoming"
-            },
+export default {
+     created () {
+              this.getCourse();
+  },
+    data() {
+        return { 
+           teacherList:[
+
         ],
           classList:[
 
@@ -130,11 +94,33 @@ export default {
                 "link":"",
                  "title":"xiaoming"
             },
-        ],
-    }),
+        ]}
+    }
+    ,
     components:{
         LoopImage,
         TeacherAndClassCard
+    },
+    methods:{
+        getCourse(){
+            //箭头函数中的this指向外部作用对象
+            //若使用匿名函数则会报错，查不到teacherlist
+            //解构赋值  teachername(在element中):alt(为自定义属性)  
+            getCourseIntro(0,4).then(Response=>{
+                Response.data.data.forEach(element => {
+                  
+                    const {src:src,teachername:alt,intro:description,link='CourseIntro',title:title,id:id}=element;
+                    const t={src,alt,description,link,title,id:id};
+                    t.description=t.description.substring(0,30)+"...";
+                    //name 跟path不一样 
+                    t.link={name:'CourseIntro',params:{id:t.id}}
+                    console.log(t)
+                    this.teacherList.push(t)
+                });
+            
+                })
+        },
+      
     }
 }
 </script>

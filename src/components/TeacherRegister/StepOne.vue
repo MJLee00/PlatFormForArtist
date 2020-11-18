@@ -251,8 +251,9 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
+          
         }
-         else{this.$emit('child-event',1)}
+         this.$emit('child-event',{status:1,values:values})
       });
     },
     

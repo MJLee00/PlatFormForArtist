@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import {postUser} from './../api/api'
+import {insertUser} from './../api/api'
 export default {
   
   beforeCreate() {
@@ -80,8 +80,9 @@ export default {
         if (!err) {
         
           console.log(values['userName'])
-          postUser(values["userName"],values["password"]).then(Response=>{
-            alert(Response.status+"注册成功")
+          values["type"]=1;
+          insertUser(values).then(Response=>{
+            alert(Response.data.msg)
           })
           this.$router.push('/Login')
         }

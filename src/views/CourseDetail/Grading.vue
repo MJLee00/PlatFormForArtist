@@ -1,24 +1,28 @@
 <template>
     <div class="group">
-        <h1>{{notification}}</h1>
-        <h2 style="font-size:20px">{{title}}</h2>
+        <h1>{{title}}</h1>
+  
         <span style="font-size:20px">{{content}}</span>
            <a-button type="primary" v-if="this.$root.isShowUser==1" @click="navi('InsertGrading')">新增评分标准</a-button>
     </div>
 </template>
 
 <script>
+import {getCourseDetailById} from "../../api/api.js"
 export default {
-      mounted:{
-       //根据课程id获取是否属于当前教师的课程，若是则显示新增公告
+     mounted(){
+            //箭头函数里的this指向的是全局this不是函数体的this
+        getCourseDetailById(this.$route.params.id).then(Response=>{
+                 
+                console.log(Response.data)
+                this.title=Response.data.scoretitle;
+                this.content=Response.data.score
+            })
     },
     data:()=>({
-        notification:"评分标准",
+      
         title:"",
-        content:`本课程满分100分，由单元测验、期末考试、课程讨论情况三部分组成：
-1.单元测验占50%：课程安排单元测验5次，每次占总分的10%。测验题均为客观题(单选题、多选2.题、判断题、填空题)。
-3.期末考试占40%：期末考试成绩占总分的40%，试题均为客观题。
-4.课程讨论占10%：“课堂交流区”中的讨论情况占总成绩的10%，学习者在活跃度(需要在“课堂交流区”中回复的数量达到10次以上)达到标准即可获得10分，否则不得分。`
+        content:''
     }),
 
       methods:{

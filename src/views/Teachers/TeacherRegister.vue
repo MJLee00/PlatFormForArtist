@@ -13,10 +13,11 @@ import Step from "../../components/TeacherRegister/Step"
 import StepOne from "../../components/TeacherRegister/StepOne"
 import StepTwo from "../../components/TeacherRegister/StepTwo"
 import Result from "../../components/Result"
+import {insertTeacher} from  "../../api/api.js"
 export default {
     data:()=>({
         status:0,
-        
+        stepOneValue:null
     }),
     components:{
 
@@ -27,14 +28,20 @@ export default {
     },
     methods:{
         parentEvent(data){
-            console.log(data)
-            this.status=data;
-            console.log(this.status)
+          
+            this.status=data.status;
+            data.values["type"]=1;
+            this.stepOneValue=data.values;
+
         },
          parentEvent1(data){
-            console.log(data)
-            this.status=data;
-            console.log(this.status)
+         
+            this.status=data.status;
+            console.log(data.values)
+            console.log(this.stepOneValue)
+            insertTeacher(this.stepOneValue).then(Response=>{
+                    alert(Response.data.status)
+            })
         }
     }
 }

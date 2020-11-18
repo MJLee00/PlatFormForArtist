@@ -70,7 +70,7 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
-          console.log(this.$yuns.format(new Date(),"yyyy/MM/dd"))
+          console.log(this.$utils.format(new Date(),"yyyy/MM/dd"))
          getUser(values["userName"],values["password"]).then(Response=>{
            console.log(Response)
           if(Response.data.status==200)

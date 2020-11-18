@@ -5,15 +5,17 @@ import App from './App';
 import router from './router'
 import Antd from 'ant-design-vue';
 import VueWechatTitle from 'vue-wechat-title'
-import yuns from './assets/js/yun';
+
 import VideoPlayer from 'vue-video-player';
 import axios from 'axios'
+
+import Utils from './utils/commonFunc'
 
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 Vue.use(VideoPlayer);
-Vue.use(yuns);
 
+Vue.use(Utils)
 Vue.use(VueWechatTitle)
 Vue.component(Button.name, Button);
 Vue.use(Antd);

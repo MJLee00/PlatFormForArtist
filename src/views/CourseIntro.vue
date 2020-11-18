@@ -6,11 +6,11 @@
         <a-button class="button" style="top:600px" @click="showComments">课程评价</a-button>
 
         <CourseIntro style="position:absolute;left:450px;top:100px"
-        v-show="status==0" :title="obj.title" :author="obj.author" :src="obj.src" :intro="obj.intro"
+        v-show="status==0" :title="obj.title" :author="obj.teachername" :src="obj.src" :intro="obj.intro"
         :abstract="obj.abstract" :summurize="obj.summurize" :goal="obj.goal" :outline="obj.outline"
         :reference="obj.reference"  :people="obj.people"
         ></CourseIntro>
-        <h1 style="position:absolute;left:450px;top:100px">精彩评论</h1>
+        <h1 style="position:absolute;left:450px;top:100px" v-show="status==1">精彩评论</h1>
         <Comment style="left:450px;top:-200px" v-show="status==1"
          :listData="comments" 
          ></Comment>
@@ -21,12 +21,22 @@
 
 import Comment from "../components/Comments"
 import CourseIntro from "../components/CourseIntro"
+import {getCourseById} from "../api/api.js"
 export default {
+    mounted(){
+            //箭头函数里的this指向的是全局this不是函数体的this
+      getCourseById(this.$route.params.id).then(Response=>{
+                 this.obj=Response.data
+                console.log(Response.data)
+                this.obj.src=this.$utils.getImage(this.obj.src);
+            })
+    },
      components:{
         Comment,
         CourseIntro
     },
     methods:{
+      
         showCourse(){
             this.status=0;
         },
@@ -34,27 +44,15 @@ export default {
             this.status=1;
         },
         loginCourseDetail(){
-            this.$router.push("CoursesDetail/Bulletin")
+            this.$router.push({name:"CoursesDetail",params:{id:this.$route.params.id}})
         }
 
     },
     data:()=>({
         status:0,
+      
         obj:
-
             {
-                "src":require("./../assets/aviater1.jpg"),
-                "id":"1",
-                  "title":"玉石雕琢与技艺",
-                "author":"xiaoming",
-                "intro":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxxxxxxxxxxxxxxx教育科学研究院小学部xxxxxxxxxxxxxxxxxxxxxxxxxxxx主任,",
-                "abstract":"xxxxxxxxx",
-                "summurize":"xxxxxxxx",
-                "goal":"1.xxxxxxxxxx\n2.xxxxxxxxx",
-                "outline":"1.xxxxxxx\n2.xxxxxx",
-                "reference":"1.xxxxxxx\n2.xxxxxxx",
-                "people":"1/40"
-                
             },
         comments:[{
             "name":"qasdfk",

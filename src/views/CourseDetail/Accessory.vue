@@ -2,16 +2,46 @@
     <div  class="group">
         <h1>课 件</h1>
         <div class="btn-group">
-         <a-button @click="navi({name:'AccessoryDetail'})">第1讲 引论 </a-button>
-            <a-button @click="navi({name:'InsertAccessory'})" style="background:blue;color:white">新增课件 </a-button>
+         <a-list item-layout="vertical" size="large" class="listbtn" :pagination="pagination" :data-source="listData">
+          <a-list-item slot="renderItem" key="item.title" slot-scope="item">
+             <a-button @click="navi({name:'AccessoryDetail',params:{id:item.id}})">{{item.title}} </a-button>
+         </a-list-item>
+         </a-list>
+            <a-button @click="navi({name:'InsertAccessory'})" style="background:blue;color:white" v-if="this.$root.isShowUser==1">新增课件 </a-button>
         </div>
     </div>
 </template>
 <script>
+import {getCourseware} from '../../api/api.js'
 export default {
+    mounted(){
+       this.getData()
+    },
     methods:{
         navi(s){
             this.$router.push(s)
+        },
+        getData(){
+            getCourseware(this.pagination.current-1,this.pagination.pageSize,this.$route.params.id).then(Response=>{
+                this.listData=Response.data.data;
+                  this.pagination.total=Response.data.total
+                console.log(this.listData)
+             })
+        }
+    },
+    data(){
+        return {
+            listData:[],
+            pagination: {
+            total:0,
+            pageSize: 6,
+            current:1,
+            onChange:current=> {
+            console.log(current)
+            this.pagination.current=current;
+            this.getData()
+          },
+         },
         }
     }
 }

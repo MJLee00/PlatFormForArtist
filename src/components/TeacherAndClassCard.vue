@@ -3,7 +3,7 @@
     <img
       slot="cover"
       :alt="alter"
-      :src="source"
+      :src="getImage(source)"
       @click="navi(link)"
       />
    
@@ -20,7 +20,12 @@ export default {
    props:["source","alter","description","link","title"],
    methods:{
      navi(s){
+       console.log(s);
        this.$router.push(s)
+     },
+     getImage(src){
+  
+       return require('./../assets/'+src);
      }
    }
 }

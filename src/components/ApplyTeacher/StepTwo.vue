@@ -129,7 +129,7 @@ export default {
         if (!err) {
           console.log('Received values of form: ', values);
         }
-            else{this.$emit('child-event',2)}
+            else{this.$emit('child-event',{status:2,values:values})}
       });
     },
  

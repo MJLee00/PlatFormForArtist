@@ -196,7 +196,8 @@ export default new Router({
     
     },
     {
-      path:'/CourseIntro',
+      
+      path:'/CourseIntro/:id',//防止页面刷新后id丢失
       name:'CourseIntro',
       component:()=>import(/* webpackChunkName: "CourseIntro"*/"../views/CourseIntro.vue" ),
       meta:{
@@ -222,14 +223,14 @@ export default new Router({
     }
     ,
     {
-      path:'/CoursesDetail',
+      path:'/CoursesDetail/:id',
       name:'CoursesDetail',
       component:()=>import(/* webpackChunkName: "CoursesDetail"*/"../views/CoursesDetail.vue" ),
       meta:{
         title:'课程详情'
       },
       children:[{
-        path:'Bulletin',
+        path:'Bulletin/:id',
         name:'Bulletin',
         component:()=>import(/* webpackChunkName: "Bulletin"*/"../views/CourseDetail/Bulletin.vue" ),
         meta:{
@@ -245,7 +246,7 @@ export default new Router({
         },
       },
       {
-        path:'Grading',
+        path:'Grading/:id',
         name:'Grading',
         component:()=>import(/* webpackChunkName: "Grading"*/"../views/CourseDetail/Grading.vue" ),
         meta:{
@@ -262,7 +263,7 @@ export default new Router({
         },
       },
       {
-        path:'Accessory',
+        path:'Accessory/:id',
         name:'Accessory',
         component:()=>import(/* webpackChunkName: "Grading"*/"../views/CourseDetail/Accessory.vue" ),
         meta:{
@@ -270,7 +271,7 @@ export default new Router({
         },
       },
       {
-        path:'AccessoryDetail',
+        path:'AccessoryDetail/:id',
         name:'AccessoryDetail',
         component:()=>import(/* webpackChunkName: "AccessoryDetail"*/"../views/CourseDetail/VideosAndDoc.vue" ),
         meta:{
@@ -286,7 +287,7 @@ export default new Router({
         },
       },
       {
-        path:'Testing',
+        path:'Testing/:id',
         name:'Testing',
         component:()=>import(/* webpackChunkName: "Testing"*/"../views/CourseDetail/Testing.vue" ),
         meta:{
