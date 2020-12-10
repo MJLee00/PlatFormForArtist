@@ -1,7 +1,7 @@
 <template>
   <div class='home'>
             <video-player  class="video-player vjs-custom-skin"
-        ref="videoPlayer" 
+       
         :playsinline="true" 
         :options="playerOptions"
         ></video-player>
@@ -10,6 +10,11 @@
 
 <script>
   export default {
+    props:['video'],
+    mounted(){
+      console.log(this.video)
+      this.playerOptions.sources[0].src=require("./../assets/"+this.video)
+    },
     name: 'Home',
     data() {
       return {
@@ -24,9 +29,9 @@
     fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
     sources: [{
       type: "video/mp4",//这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
-      src: require("./../assets/test.mp4") //url地址
+      src: "" //url地址  test.mp4 require("./../assets/test.mp4")
     }],
-    poster:require("./../assets/2.jpg"), //你的封面地址
+    poster:require("./../assets/2.jpg"), //你的封面地址  2.jpg
     // width: document.documentElement.clientWidth, //播放器宽度
     notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
     controlBar: {

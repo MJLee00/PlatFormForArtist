@@ -20,7 +20,7 @@
     <div style="position:absolute;top:1050px;left:30px;margin:20px 0px 30px 30px;font-size:30px;">课程推荐</div>
    <div style="position:absolute;top:1050px;width:100%">
   
-    <TeacherAndClassCard v-for="(list,index) in classList" :key="index" :source="list.src"
+    <TeacherAndClassCard v-for="(list,index) in courseList" :key="index" :source="list.src"
      :alter="list.alt"
      :link="list.link"
      :description="list.description"
@@ -34,7 +34,7 @@
      <span style="position:absolute;top:1500px;left:30px;margin:20px 0px 30px 30px;font-size:30px;">招募推荐</span>
     <div style="position:absolute;top:1500px;width:100%">
   
-    <TeacherAndClassCard v-for="(list,index) in classList" :key="index" :source="list.src"
+    <TeacherAndClassCard v-for="(list,index) in recruitList" :key="index" :source="list.src"
      :alter="list.alt"
      :link="list.link"
      :description="list.description"
@@ -53,47 +53,23 @@
 <script>
 import LoopImage from "../components/LoopIamge"
 import TeacherAndClassCard from "../components/TeacherAndClassCard"
-import {getCourseIntro} from "../api/api.js"
+import {getCourseIntro,getRecruits,getTeachers} from "../api/api.js"
 
 export default {
      created () {
               this.getCourse();
+              this.getRecruit();
+              this.getTeachers();
   },
     data() {
         return { 
+            courseList:[],
            teacherList:[
 
         ],
-          classList:[
+          recruitList:[
 
-            {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                "title":"xiaoming"
-            },
-             {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                "title":"xiaoming"
-            },
-             {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                 "title":"xiaoming"
-            },
-             {
-                "src":require("./../assets/aviater1.jpg"),
-                "alt":"test",
-                "description":"名师推荐_唐诗宋词_幼儿教育_教育专区。名师推荐 袀 推荐 xxx 女,xxx教育科学研究院小学部主任,",
-                "link":"",
-                 "title":"xiaoming"
-            },
+          
         ]}
     }
     ,
@@ -102,6 +78,37 @@ export default {
         TeacherAndClassCard
     },
     methods:{
+        getTeachers(){
+            getTeachers(0,4).then(Response=>{
+                 this.total=Response.data.data.total;
+               
+                 this.teacherList=[];
+                Response.data.data.data.forEach(element => {
+                    const {profileimage:src,intro:alt,intro:description,link='TeacherHomePage',title:title,id:id,teacher:teacher}=element;
+                    const t={src,alt,description,link,title,id,teacher};
+                    t.title=t.teacher.businessname;
+                   t.description=t.description.substring(0,30)+"...";
+                      t.link={name:'TeacherHomePage',params:{id:t.id}}
+                      
+                    this.teacherList.push(t)
+                });     
+                })
+        },
+          getRecruit(){       
+            getRecruits(0,4).then(Response=>{
+                 this.total=Response.data.data.total;
+               
+                 this.recruitList=[];
+                Response.data.data.data.forEach(element => {
+                    const {img:src,title:alt,content:description,link='RecruitsDetail',title:title,id:id}=element;
+                    const t={src,alt,description,link,title,id};
+                   t.description=t.description.substring(0,30)+"...";
+                      t.link={name:'RecruitsDetail',params:{id:t.id}}
+                      
+                    this.recruitList.push(t)
+                });     
+                })
+         },
         getCourse(){
             //箭头函数中的this指向外部作用对象
             //若使用匿名函数则会报错，查不到teacherlist
@@ -115,7 +122,7 @@ export default {
                     //name 跟path不一样 
                     t.link={name:'CourseIntro',params:{id:t.id}}
                     console.log(t)
-                    this.teacherList.push(t)
+                    this.courseList.push(t)
                 });
             
                 })

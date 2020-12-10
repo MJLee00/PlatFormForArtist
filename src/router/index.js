@@ -1,6 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  console.log(location)
+  return originalPush.call(this, location).catch(
+    err => {
+      console.log(err)
+    }
+    )
+}
 Vue.use(Router)
 
 export default new Router({
@@ -410,7 +418,7 @@ export default new Router({
           },
           children:[
                 {
-              path:'ApplyTeacher',
+              path:'ApplyTeacher/:id',
               name:'ApplyTeacher',
               component:()=>import(/* webpackChunkName: "ApplyTeacher"*/"../views/PublicPages/Messaging/ApplyTeacher.vue" ),
               meta:{
@@ -464,8 +472,8 @@ export default new Router({
       ]
     },
     {
-      path:'/ApplyTeacher',
-      name:'ApplyTeacher',
+      path:'/ApplyTeacherDetail',
+      name:'ApplyTeacherDetail',
       component:()=>import(/* webpackChunkName: "ApplyTeacher"*/"../views/Students/ApplyTeacher.vue" ),
       meta:{
         title:'申请拜师'

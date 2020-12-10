@@ -76,7 +76,10 @@ export default {
           if(Response.data.status==200)
           this.$root.isShowUser=Response.data.data.type;
            if(this.$root.isShowUser==1||this.$root.isShowUser==2)
-              {this.$router.push('/');}
+              {
+                this.$router.push('/');
+                this.$root.id=Response.data.data.id
+              }
            else if(this.$root.isShowUser==3)
               this.$router.push('/AdminHomePage');
                

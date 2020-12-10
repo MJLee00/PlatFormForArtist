@@ -21,12 +21,16 @@ Vue.component(Button.name, Button);
 Vue.use(Antd);
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
+
+
+
 new Vue({
   router,
   data:function(){
     return {
       //0未登录,1老师，2学生，3管理员
       isShowUser:0,
+      id:-1,
     }
   },
  

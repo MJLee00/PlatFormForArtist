@@ -3,27 +3,39 @@
         <h1 >{{title}}</h1>
         <div class="btn-group">
             <button @click="changeStatus(0)">视 频</button> <button  @click="changeStatus(1)">文 档</button>
-            <Video v-show="status==0"></Video>
-            <h3 v-show="status==1">saetaset</h3>
+            <Video :video="this.video" v-show="status==0" v-if="this.video"></Video>
+           <iframe :src="src" frameborder="0" style="width: 100%; height: 500px" v-show="status==1"></iframe>
         </div>
     </div>
 </template>
 
 <script>
 import Video from "./../../components/Video"
+import {getCoursewareByid} from "../../api/api.js"
 export default {
+    mounted(){
+        getCoursewareByid(this.$route.params.id).then(Response=>{   
+                this.video=Response.data.video      
+
+                this.src='http://10.28.221.165:8888/courseware/getdocument/'+Response.data.id
+        })
+    },
 
     components:{
-        Video
+        Video,
     },
+
     data:()=>({
+        video:"",
+        src:'',
         status:0,
         title:"课 件"
     }),
     methods:{
         changeStatus(s){
             this.status=s;
-        }
+        },
+      
     }
 }
 </script>

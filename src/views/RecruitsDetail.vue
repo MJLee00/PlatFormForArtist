@@ -3,13 +3,16 @@
         <h1 class="t1" style="margin-top:50px">招募主题:   {{title}}</h1>
          <h1 class="t1">招募内容:   {{content}}</h1>
           <h1 class="t1">招募人数:   {{people}}</h1>
-          <a-button class="button" v-show="isStu" @click="navi('/ApplyTeacher')" >拜师申请</a-button>
+          <a-button class="button" v-show="isStu" @click="navi('ApplyTeacherDetail')" >拜师申请</a-button>
           <a-button class="button"  @click="navi('Recruits')">返    回</a-button>
     </div>
 </template>
 
 <script>
 export default {
+    created(){
+        console.log(this.$route.params.id)
+    },
      components:{
       
     },
@@ -25,7 +28,7 @@ export default {
     },
     methods:{
         navi(s){
-            this.$router.push(s)
+            this.$router.push({name:s,params:{id:this.$route.params.id}})
         }
     }
 }

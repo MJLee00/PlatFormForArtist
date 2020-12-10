@@ -6,14 +6,14 @@
   >
     <template #extra>
       <a-button key="console" type="primary" @click="navi(link)">
-        登 陆
+        {{btext}}
       </a-button>
     </template>
   </a-result>
 </template>
 <script>
 export default {
-  props:["title","link"],
+  props:["title","link","btext"],
   data() {
     return {};
   },

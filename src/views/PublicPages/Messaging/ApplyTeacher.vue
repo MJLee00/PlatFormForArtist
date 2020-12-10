@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{author}}刚刚对您发起的{{course}}招募信息进行了拜师申请,以下是学生申请信息。</h1>
+        <h1>{{author}}刚刚对您发起的招募信息进行了拜师申请,以下是学生申请信息。</h1>
           <a-form-item  :label-col="{ span: 2 }" :wrapper-col="{ span: 22}"  label="自我介绍">
           <p style="line-height:15px">{{intro}}</p>
         </a-form-item>
@@ -34,10 +34,24 @@
 </template>
 
 <script>
+import {getApplyteacher} from "./../../../api/api"
 export default {
-    data:()=>({
+  mounted(){
+    getApplyteacher(this.$route.params.id).then(Response=>{
+      console.log(Response.data.data);
+      const data=Response.data.data;
+       this.author=data.name;
+       this.advantage=data.advangtage;
+       this.intro=data.selfintro;
+       this.reason=data.reason;
+       this.phone=data.phone;
+       this.email=data.email;
+       this.imgs=data.prize;
+    })
+  },
+    data(){
+      return {
         author:'小张',
-          course:'《艺术鉴赏》',
           intro:`Lorem ipsum dolor sit amet, consectetur adipiscing elit.
            Aenean euismod bibendum laoreet. Proin gravida dolor sit amet 
            lacus accumsan et viverra justo commodo. Proin sodales pulvinar 
@@ -56,7 +70,7 @@ export default {
            phone:'123123123',
            email:'123918203912',
            imgs:require('./../../../assets/1.jpg')
-    })
+    }}
 }
 </script>
 <style scoped>

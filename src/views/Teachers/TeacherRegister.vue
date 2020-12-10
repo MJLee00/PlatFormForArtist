@@ -5,7 +5,7 @@
         <Step :status="status"></Step>
          <StepOne v-show="status==0" style="margin-top:10px" @child-event="parentEvent"></StepOne>
           <StepTwo v-show="status==1" style="margin-top:10px" @child-event="parentEvent1"></StepTwo>
-          <Result v-show="status==2" link="/Login" title="提交成功！"></Result>
+          <Result v-show="status==2" link="/Login" title="提交成功！" btext="登陆"></Result>
     </div>
 </template>
 <script>

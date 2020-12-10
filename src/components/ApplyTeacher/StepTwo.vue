@@ -81,13 +81,16 @@
 </template>
 
 <script>
-
+import {postApplyTeacher} from "./../../api/api.js"
 export default {
+  
+  props:["datafromStepOne","recruitid"],
     components:{
 
     },
   data() {
     return {
+   
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
@@ -126,10 +129,19 @@ export default {
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
-            else{this.$emit('child-event',{status:2,values:values})}
+         
+       
+          
+              //拿到上一步的data进行合并
+              const record=Object.assign(this.datafromStepOne,values);
+              record["applyid"]=this.$root.id;
+              record["recruitid"]=this.recruitid;
+              console.log(record)
+              postApplyTeacher(record).then(Response=>{
+                console.log(Response.data);
+              });
+              this.$emit('child-event',{status:2,values:values})
+          
       });
     },
  

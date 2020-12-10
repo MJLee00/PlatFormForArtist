@@ -27,13 +27,13 @@
 
   <!-- 消息内容 -->
     <div class="messageContainer">
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </div>
  </div>
 </template>
 <script>
 import infiniteScroll from 'vue-infinite-scroll';
-
+import {getMessage} from "./../../api/api.js"
 export default {
   directives: { infiniteScroll },
  
@@ -50,21 +50,35 @@ export default {
        this.getData(res=>{
            this.data=res;
            if(res.length!=0){
-             console.log(this.$route.params.index)
-             this.$router.push(this.$route.params.index+'/Messaging/'+res[0].route)
+             
+             this.$router.push(res[0].route)
              }
        })
       
   },
+  
   methods: {
       del(t){
           console.log(t);
       },
       getData(callback){
-         const data=[  {"src":"","route":"ApplyTeacher","name":"小明","description":"拜师消息"},
-           {"src":"","route":"ApplyTockenMes","name":"小红","description":"申请令牌消息"},
-            {"src":"","route":"CommentMes","name":"小张","description":"评论消息"},
+         const data=[  //{"src":"","route":"ApplyTeacher","name":"小明","description":"拜师消息"},
+           //{"src":"","route":"ApplyTockenMes","name":"小红","description":"申请令牌消息"},
+          //  {"src":"","route":"CommentMes","name":"小张","description":"评论消息"},
           ]
+           getMessage(this.$root.id).then(Response=>{
+             console.log(Response.data);
+             Response.data.data.forEach(element => {
+                 let el={};
+                 if(element["type"]==0)
+                 el["route"]={path:"ApplyTeacher:id",name:"ApplyTeacher",params:{id:element["typeid"]}}
+                 el["description"]=element["content"]
+                 el["name"]="小明";
+                 el["src"]="";
+                 
+                 data.push(el);
+             });
+          })
           callback(data);
       },
       navi(s){
