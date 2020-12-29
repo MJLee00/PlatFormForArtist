@@ -1,19 +1,22 @@
-# antd-demo
-
-## Project setup
+# 艺术平台前端
+## 项目启动
 ```
-npm install
+cnpm install
 ```
-
-### Compiles and hot-reloads for development
+### 项目本地启动
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
+### 项目编译到生产环境 
 ```
 npm run build
 ```
+# 页面划分
+|  首页  | 管理员 |
+|  ----  | ----  |
+|  选课  |       |
+|  测试  |       |
+|  个人空间  |       |
 
 ### Lints and fixes files
 ```
