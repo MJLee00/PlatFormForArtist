@@ -30,6 +30,7 @@ new Vue({
     return {
       //0未登录,1老师，2学生，3管理员
       isShowUser:0,
+      activeUser:null,
       id:-1,
     }
   },

@@ -3,15 +3,19 @@ import Vue from 'vue'
 import Axios from 'axios'
 
 const axiosInstance = Axios.create({
-    withCredentials: false
+    withCredentials: true//允许携带cookie,发送post请求会自动带上cookie
 })
 
 // 通过拦截器处理csrf问题，这里的正则和匹配下标可能需要根据实际情况小改动
 axiosInstance.interceptors.request.use((config) => {
     config.headers['X-Requested-With'] = 'XMLHttpRequest'
-    //config.headers['Content-Type']='application/x-www-form-urlencoded'
-    const regex = /.*csrftoken=([^;.]*).*$/
-    config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1]
+    config.headers['Content-Type']='application/x-www-form-urlencoded'
+    let activeUser=JSON.parse(sessionStorage.getItem("activeUser"));
+    if(activeUser){
+        config.headers["Authorization"]="Bearer "+activeUser.jwt;
+    }
+    //const regex = /.*csrftoken=([^;.]*).*$/
+    //config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1]
     return config
 })
 

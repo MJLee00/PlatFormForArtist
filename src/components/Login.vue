@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import {getUser} from './../api/api'
+import {getUser,getjwt} from './../api/api'
 export default {
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' });
@@ -65,6 +65,7 @@ export default {
       navi(s){
           this.$router.push(s)
       },
+  
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
@@ -73,8 +74,13 @@ export default {
           console.log(this.$utils.format(new Date(),"yyyy/MM/dd"))
          getUser(values["userName"],values["password"]).then(Response=>{
            console.log(Response)
-          if(Response.data.status==200)
-          this.$root.isShowUser=Response.data.data.type;
+          if(Response.status==200){
+          
+          getjwt().then(Response=>{
+              let activeUser=this.$utils.getUserInfoFromJwt(Response.data.data);
+             console.log( activeUser)
+             sessionStorage.setItem("activeUser",JSON.stringify(activeUser))
+              this.$root.isShowUser=activeUser.type;
            if(this.$root.isShowUser==1||this.$root.isShowUser==2)
               {
                 this.$router.push('/');
@@ -84,7 +90,10 @@ export default {
               this.$router.push('/AdminHomePage');
                
           console.log(this.$root.isShowUser)
-        })
+            })
+         
+         }
+         })
         }
  
       });

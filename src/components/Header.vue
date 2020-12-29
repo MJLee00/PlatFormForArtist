@@ -53,18 +53,22 @@
   </a-layout>
 </template>
 <script>
+import {getjwt,postlogout} from './../api/api'
 export default {
+  mounted(){
+    this.refresh_user();
+  },
   data:()=>({
      isShowUser:true
   }),
   methods:{
     LoginHomePage(){
       if(this.$root.isShowUser==1)
-       this.$router.push('/TeacherHomePage/CourseList')
+        this.$router.push('/TeacherHomePage/CourseList')
       else  if(this.$root.isShowUser==2)
-       this.$router.push('/StuHomePage/CourseList')
-         else  if(this.$root.isShowUser==3)
-       this.$router.push('/AdminHomePage')
+        this.$router.push('/StuHomePage/CourseList')
+      else  if(this.$root.isShowUser==3)
+        this.$router.push('/AdminHomePage')
     },
     //导航
     navi(s){
@@ -72,8 +76,47 @@ export default {
       this.$router.push(s)
     },
     logout(){
-      this.$root.isShowUser=0;
+      postlogout().then(Response=>{
+        console.log(Response)
+        if(Response.status==200){
+         this.$root.isShowUser=0;
+         this.$root.activeUser=null;
+         sessionStorage.removeItem("activeUser");
          this.$router.push('/');
+        }
+      
+      })
+     
+
+    },
+
+    refresh_user:function(){
+    //从sessionStorage中取出当前用户
+    let activeUser= sessionStorage.getItem("activeUser");
+    //取出cookie中的令牌
+    let uid = this.$utils.getCookie("uid")
+    if(activeUser && uid && uid == activeUser.uid){
+      this.$root.isShowUser = activeUser.type;
+      this.$root.activeUser = activeUser;
+    }else{
+      if(!uid){
+      return ;
+    }
+    //请求查询jwt
+    getjwt().then((res) => {
+      console.log(res)
+    if(res.data.message=="success"){
+      let jwt = res.data.data;
+     
+      let activeUser = this.$utils.getUserInfoFromJwt(jwt)
+      if(activeUser){
+        this.$root.isShowUser = activeUser.type;
+      this.$root.activeUser = activeUser;
+        sessionStorage.setItem("activeUser",JSON.stringify(activeUser))
+      }
+    }
+    })
+    }
     }
   }
    

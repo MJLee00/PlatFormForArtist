@@ -1,4 +1,33 @@
-
+const getUserInfoFromJwt =(jwt) =>{
+    if(!jwt){  return ;  }
+    //atob进行base64解码
+    console.log(jwt)
+    var jwtDecodeVal =JSON.parse( atob(jwt.split('.')[1]));
+    if (!jwtDecodeVal) {
+    return ;
+    }
+    let activeUser={}
+    
+    activeUser.type = jwtDecodeVal.type || '';
+    activeUser.username = jwtDecodeVal.nickname || '';
+    activeUser.profileImage = jwtDecodeVal.profileImage || '';
+    activeUser.userid = jwtDecodeVal.userid || '';
+    activeUser.authorities = jwtDecodeVal.authorities || '';
+    activeUser.uid = jwtDecodeVal.jti || '';
+    activeUser.jwt = jwt;
+    return activeUser;
+}
+const  getCookie=(cookieName)=> {
+    var strCookie = document.cookie;
+    var arrCookie = strCookie.split("; ");
+    for(var i = 0; i < arrCookie.length; i++){
+        var arr = arrCookie[i].split("=");
+        if(cookieName == arr[0]){
+            return arr[1];
+        }
+    }
+    return "";
+}
 const format = (o, format) => { //日期类型
     let args={
             "M+": o.getMonth() + 1,
@@ -23,6 +52,9 @@ const getImage = (src)=>{
         //添加全局API
         Vue.prototype.$utils = {
             format,
-            getImage
+            getImage,
+            getUserInfoFromJwt,
+            getCookie
         }
     }
+

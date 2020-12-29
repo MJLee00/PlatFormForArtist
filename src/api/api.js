@@ -1,12 +1,22 @@
 // appfront/src/api/api.js
 import axiosInstance from './index'
-
+//添加qs防止后台接口收不到post参数
+import qs from 'qs'
 const axios = axiosInstance
-const url='http://10.28.221.165:8888/'
+const url='http://www.atspssing.com/source_api/source/'
+//需要在服务器端配置host文件localhost：10.28.221.165
+const userUrl='http://www.atspssing.com/oauth_api/'
 export const postUser =(phoneNumber,pwd)=>{return axios.post(url+'user/',{'account':phoneNumber,'pwd':pwd})}
 export const getUser =(phoneNumber,pwd)=>{
-    return axios.post(url+'login/',{'account':phoneNumber,'password':pwd}
+    return axios.post(userUrl+'userlogin',qs.stringify({'username':phoneNumber,'password':pwd})
 )}
+export const getjwt=()=>{
+    return axios.get(userUrl+"userjwt")
+}
+export const postlogout=()=>{
+    return axios.post(userUrl+"userlogout");
+}
+
 export const insertUser=(user)=>{return axios.post(url+'userRegister/',user)};
 
 export const insertTeacher=(teacher)=>{return axios.post(url+'teacherRegister/',teacher)}
