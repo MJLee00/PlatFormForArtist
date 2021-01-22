@@ -9,7 +9,7 @@
         >
 
           <a-form-item v-bind="formItemLayout" label="视频" >
-                <a-upload
+                <Upload
                     v-decorator="[
                     'video',
                     {
@@ -22,18 +22,12 @@
                         ],
                     },
                     ]"
-                    name="file"
-                    :multiple="false"
-                    
-                    action=""
-                    @change="handleChange"
-                >
-            <a-button> <a-icon type="upload" /> 上传视频 </a-button>
-        </a-upload>
+                    name="video"
+                ></Upload>
           </a-form-item>
 
         <a-form-item v-bind="formItemLayout" label="文件" >
-                <a-upload
+                <Upload
                     v-decorator="[
                     'doc',
                     {
@@ -47,13 +41,7 @@
                     },
                     ]"
                     name="file"
-                    :multiple="false"
-                    
-                    action=""
-                    @change="handleChange"
-                >
-            <a-button> <a-icon type="upload" /> 上传文件</a-button>
-        </a-upload>
+                ></Upload>
           </a-form-item>
   <a-form-item v-bind="tailFormItemLayout">
       <a-button type="primary" html-type="submit">
@@ -65,7 +53,11 @@
 </template>
 
 <script>
+import Upload from '../../components/Upload'
 export default {
+  components:{
+    Upload
+  },
       data() {
     return {
       formItemLayout: {

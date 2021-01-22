@@ -17,7 +17,6 @@
         <a-menu-item key="3" @click="navi('/Recruits')">
           招 募
         </a-menu-item>
-        
         <a-input-search placeholder="输入课程名称" style="width: 300px;margin:0px 0px 0px 100px" @search="onSearch" />
      
           

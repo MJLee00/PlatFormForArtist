@@ -6,6 +6,22 @@ const axios = axiosInstance
 const url='http://www.atspssing.com/source_api/source/'
 //需要在服务器端配置host文件localhost：10.28.221.165
 const userUrl='http://www.atspssing.com/oauth_api/'
+const uploadUrl='http://www.atspssing.com/'
+export const fileregister=(fileMd5,fileName,fileSize,mimetype,fileExt)=>{
+    return axios.post(uploadUrl+'media/upload/register/',qs.stringify({'fileMd5':fileMd5,'fileName':fileName,'fileSize':fileSize,
+        'mimetype':mimetype,'fileExt':fileExt
+    }))
+}
+export const filecheckchunk=(fileMd5,chunk,chunkSize)=>{
+    return axios.post(uploadUrl+'media/upload/checkchunk/',qs.stringify({'fileMd5':fileMd5,'chunk':chunk,'chunkSize':chunkSize
+    }))
+}
+export const filemergechunks=(fileMd5,fileName,fileSize,mimetype,fileExt)=>{
+    return axios.post(uploadUrl+'media/upload/mergechunks/',qs.stringify({'fileMd5':fileMd5,'fileName':fileName,'fileSize':fileSize,
+                'mimetype':mimetype,'fileExt':fileExt
+    }))
+}
+
 export const postUser =(phoneNumber,pwd)=>{return axios.post(url+'user/',{'account':phoneNumber,'pwd':pwd})}
 export const getUser =(phoneNumber,pwd)=>{
     return axios.post(userUrl+'userlogin',qs.stringify({'username':phoneNumber,'password':pwd})

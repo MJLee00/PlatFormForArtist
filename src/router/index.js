@@ -21,7 +21,6 @@ export default new Router({
         title:'首页'
       }
     },
-    
     {
       path:'/AdminHomePage',
       name:'AdminHomePage',

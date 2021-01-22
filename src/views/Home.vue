@@ -42,7 +42,7 @@
          float:'left',
          margin:'80px 60px 0px 25px'
 
-    }"></TeacherAndClassCard>
+    }"></TeacherAndClassCard>'
     </div>
  
     
@@ -54,7 +54,6 @@
 import LoopImage from "../components/LoopIamge"
 import TeacherAndClassCard from "../components/TeacherAndClassCard"
 import {getCourseIntro,getRecruits,getTeachers} from "../api/api.js"
-
 export default {
      created () {
               this.getCourse();

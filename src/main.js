@@ -8,12 +8,15 @@ import VueWechatTitle from 'vue-wechat-title'
 
 import VideoPlayer from 'vue-video-player';
 import axios from 'axios'
+import hls from 'videojs-contrib-hls'
 
 import Utils from './utils/commonFunc'
 
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
+
 Vue.use(VideoPlayer);
+Vue.use(hls)
 
 Vue.use(Utils)
 Vue.use(VueWechatTitle)

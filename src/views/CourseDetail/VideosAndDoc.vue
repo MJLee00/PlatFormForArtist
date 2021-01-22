@@ -17,7 +17,7 @@ export default {
         getCoursewareByid(this.$route.params.id).then(Response=>{   
                 this.video=Response.data.video      
 
-                this.src='http://10.28.221.165:8888/courseware/getdocument/'+Response.data.id
+                this.src='http://www.atspssing.com/doc/'+Response.data.document
         })
     },
 
