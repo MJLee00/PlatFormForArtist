@@ -45,7 +45,7 @@
     }"></TeacherAndClassCard>'
     </div>
  
-    
+    <Upload></Upload>
     </div>
 </template>
 
